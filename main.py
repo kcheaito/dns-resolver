@@ -16,26 +16,36 @@ def decToHex(dec, bits):
 
     return ''.join(hexadecimal)
 
+
 class DNSMessage:
-    def __init__(self):
+    def __init__(self, hostname):
         self.header = Header()
-        self.question = Question()
+        self.question = Question(hostname)
+
 
 class Header:
-    def __init__(self) -> None:
-        pass
-        # self.id = decToHex(self.generateID(), 16)
-        # self.flags = None
-        # self.qdcount = decToHex(1)
-        # self.ancount = self.nscount = self.arcount = decToHex(0)
+    def __init__(self):
+        self.id = decToHex(self.generateID(), 16)
+        self.flags = "0100"
+        self.qdcount = decToHex(1, 16)
+        self.ancount = self.nscount = self.arcount = decToHex(0, 16)
     
-    # def generateID(self) -> int:
-    #     id = random.randint(0, 255)
-    #     return id
-    
+    def generateID(self) -> int:
+        id = random.randint(0, 255)
+        return id
 
 
-class Question:
-    def __init__(self) -> None:
-        pass
+# class Question:
+#     def __init__(self, hostname):
+#         self.qname = self.encode(hostname)
+
+#     def encode(self, hostname):
+#         hostname = hostname.split('.')
+#         res = []
+
+#         for label in hostname:
+#             res.append(f'{len(label)}{label}')
+#         res.append('0')
+        
+#         return ''.join(res)
 
